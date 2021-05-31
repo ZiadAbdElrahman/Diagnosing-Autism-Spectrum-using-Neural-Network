@@ -1,7 +1,7 @@
 
 python train.py \
   --dataset_mode autism \
-  --name new_arch_dropout_gray \
+  --name new_arch_dropout_gray_log \
   --model resnet \
   --netG resnet_9blocks \
   --gpu_ids 0 \

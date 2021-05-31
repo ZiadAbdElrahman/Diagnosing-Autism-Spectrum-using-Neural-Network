@@ -477,7 +477,7 @@ class ResnetGenerator(nn.Module):
         model += [nn.Linear(144, 32), nn.ReLU(), nn.Dropout(use_dropout)]
         # model += [nn.Linear(128, 16), nn.LayerNorm(16), nn.ReLU(), ]
         model += [nn.Linear(32, 1)]
-        model += [nn.Sigmoid()]
+        # model += [nn.Sigmoid()]
         self.model = nn.Sequential(*model)
 
     def forward(self, input):

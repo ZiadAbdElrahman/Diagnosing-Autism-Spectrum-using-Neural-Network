@@ -147,7 +147,7 @@ class Trainer:
         submit = pd.DataFrame({'Image': names, 'Label': outputs})
         # submit['Image'] = names
         # submit['Label'] = outputs
-        submit.to_csv('submit.csv')
+        submit.to_csv('gray_submit.csv', index=False)
 
         print(f'End of testing epoch, Time Taken: {time.time() - epoch_start_time:.4f} Sec')
 
