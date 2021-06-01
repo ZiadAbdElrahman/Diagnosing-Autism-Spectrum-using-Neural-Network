@@ -65,6 +65,8 @@ class BaseOptions():
         parser.add_argument('--display_winsize', type=int, default=256,
                             help='display window size for both visdom and HTML')
         parser.add_argument('--use_augmented_data', action='store_true', help='if specified, print more debugging information')
+        parser.add_argument('--use_localized_data', action='store_true', help='if specified, print more debugging information')
+        parser.add_argument('--use_facial_features_data', action='store_true', help='if specified, print more debugging information')
 
         # additional parameters
         parser.add_argument('--epoch', type=str, default='latest',

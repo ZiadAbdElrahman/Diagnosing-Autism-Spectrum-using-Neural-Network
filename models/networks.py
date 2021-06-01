@@ -175,6 +175,8 @@ def define_G(input_nc, output_nc, ngf, netG, norm='batch', use_dropout=False, in
         net = ResnetGenerator(input_nc, output_nc, ngf, norm_layer=norm_layer, use_dropout=use_dropout, n_blocks=9)
     elif netG == 'resnet_6blocks':
         net = ResnetGenerator(input_nc, output_nc, ngf, norm_layer=norm_layer, use_dropout=use_dropout, n_blocks=6)
+    elif netG == 'fcl':
+        net = FCLGenerator(input_nc, output_nc, ngf, norm_layer=norm_layer, use_dropout=use_dropout, n_blocks=6)
     elif netG == 'unet_128':
         net = UnetGenerator(input_nc, output_nc, 7, ngf, norm_layer=norm_layer, use_dropout=use_dropout)
     elif netG == 'unet_256':
@@ -477,7 +479,43 @@ class ResnetGenerator(nn.Module):
         model += [nn.Linear(144, 32), nn.ReLU(), nn.Dropout(use_dropout)]
         # model += [nn.Linear(128, 16), nn.LayerNorm(16), nn.ReLU(), ]
         model += [nn.Linear(32, 1)]
-        # model += [nn.Sigmoid()]
+        model += [nn.Sigmoid()]
+        self.model = nn.Sequential(*model)
+
+    def forward(self, input):
+        """Standard forward"""
+        return self.model(input)
+
+
+class FCLGenerator(nn.Module):
+    """Resnet-based generator that consists of Resnet blocks between a few downsampling/upsampling operations.
+    We adapt Torch code and idea from Justin Johnson's neural style transfer project(https://github.com/jcjohnson/fast-neural-style)
+    """
+
+    def __init__(self, input_nc, output_nc, ngf=64, norm_layer=nn.BatchNorm2d, use_dropout=False, n_blocks=6,
+                 padding_type='reflect'):
+        """Construct a Resnet-based generator
+        Parameters:
+            input_nc (int)      -- the number of channels in input images
+            output_nc (int)     -- the number of channels in output images
+            ngf (int)           -- the number of filters in the last conv layer
+            norm_layer          -- normalization layer
+            use_dropout (bool)  -- if use dropout layers
+            n_blocks (int)      -- the number of ResNet blocks
+            padding_type (str)  -- the name of padding layer in conv layers: reflect | replicate | zero
+        """
+        assert (n_blocks >= 0)
+        super(FCLGenerator, self).__init__()
+
+        model = []
+        model += [nn.Linear(144, 1024), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(1024, 2048), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(2048, 1024), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(1024, 512), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(512, 64), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(64, 32), nn.ReLU(), nn.Dropout(use_dropout)]
+        model += [nn.Linear(32, 1)]
+        model += [nn.Sigmoid()]
         self.model = nn.Sequential(*model)
 
     def forward(self, input):

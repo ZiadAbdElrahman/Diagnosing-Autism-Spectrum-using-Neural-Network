@@ -21,7 +21,7 @@ class ResNetModel(BaseModel):
         self.netG = define_G(opt.input_nc, opt.output_nc, opt.ngf, opt.netG, opt.norm,
                              opt.dropout_rate).to(self.device)
 
-        self.criteria: Dict[str, Callable] = {'BCE': torch.nn.BCEWithLogitsLoss(), 'cross': torch.nn.CrossEntropyLoss()}
+        self.criteria: Dict[str, Callable] = {'BCE': torch.nn.BCELoss(), 'cross': torch.nn.CrossEntropyLoss()}
 
         if opt.isTrain:
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
@@ -29,6 +29,8 @@ class ResNetModel(BaseModel):
             self.optimizers.append(self.optimizer_G)
         else:
             self.optimizer_G = None
+
+        # self.netG = init_net(self.netG)
 
     def set_input(self, input):
         self.input_imgs = input['A'].float().to(self.device)
