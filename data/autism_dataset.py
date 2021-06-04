@@ -34,19 +34,23 @@ class AutismDataset(BaseDataset):
         img_dir = f'{self.root}/{self.files[index]}'
 
         img = cv2.imread(img_dir)
+        # img = cv2.resize(img, (299, 299))
         # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         # gray = np.expand_dims(gray, 2)
-        if self.opt.use_facial_features_data:
-            points_dir = f'{self.root}/{self.facial_features_files[index]}'
-            points = np.load(points_dir)
-            for i in range(len(points)):
-                point = points[i]
-                img = cv2.circle(img, (point[0], point[1]), radius=4, color=(255, 255, 255), thickness=-1)
-        # cv2.imshow('g', img)
+        # if self.opt.use_facial_features_data:
+        #     points_dir = f'{self.root}/{self.facial_features_files[index]}'
+        #     points = np.load(points_dir)
+        #     for i in range(len(points)):
+        #         point = points[i]
+        #         img = cv2.circle(img, (point[0], point[1]), radius=4, color=(255, 255, 255), thickness=-1)
+        # # cv2.imshow('g', img)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
-        img = img / 127.5 - 1
+        # img -> 224 , 244, 3
+        # 3 , 244, 244
+        img = img / 255
         img = img.transpose(2, 0, 1)
+
         label = np.array([int('non' not in img_dir)])
         row = {'A': img, 'B': label}
 

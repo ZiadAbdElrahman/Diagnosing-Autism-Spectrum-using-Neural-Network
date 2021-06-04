@@ -442,9 +442,12 @@ class ResnetGenerator(nn.Module):
                                  use_bias=use_bias))
         model.append(ResnetBlock(ngf, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
                                  use_bias=use_bias))
+
+        # Img -> B, 64, 244, 244
         model += [nn.Conv2d(ngf, ngf * 2, kernel_size=3, stride=2, padding=1, bias=use_bias),
                   norm_layer(ngf * 2),
                   nn.ReLU()]
+        # Img -> B, 128, 122, 122
         model.append(ResnetBlock(ngf * 2, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
                                  use_bias=use_bias))
         model.append(ResnetBlock(ngf * 2, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
@@ -453,6 +456,7 @@ class ResnetGenerator(nn.Module):
         model += [nn.Conv2d(ngf * 2, ngf * 4, kernel_size=3, stride=2, padding=1, bias=use_bias),
                   norm_layer(ngf * 4),
                   nn.ReLU()]
+        # Img -> B, 256, 61, 61
         model.append(ResnetBlock(ngf * 4, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
                                  use_bias=use_bias))
         model.append(ResnetBlock(ngf * 4, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
@@ -461,6 +465,7 @@ class ResnetGenerator(nn.Module):
         model += [nn.Conv2d(ngf * 4, ngf * 2, kernel_size=3, stride=2, padding=1, bias=use_bias),
                   norm_layer(ngf * 2),
                   nn.ReLU()]
+        # Img -> B, 128, 30, 30
         model.append(ResnetBlock(ngf * 2, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
                                  use_bias=use_bias))
         model.append(ResnetBlock(ngf * 2, padding_type=padding_type, norm_layer=norm_layer, use_dropout=use_dropout,
@@ -475,11 +480,19 @@ class ResnetGenerator(nn.Module):
                                  use_bias=use_bias))
         model += [nn.Conv2d(ngf // 2, 1, kernel_size=3, padding=0), norm_layer(1), nn.ReLU()]
 
+        # B , 256, 15 , 15
+        # 57600
         model += [nn.Flatten()]
-        model += [nn.Linear(144, 32), nn.ReLU(), nn.Dropout(use_dropout)]
-        # model += [nn.Linear(128, 16), nn.LayerNorm(16), nn.ReLU(), ]
+        # B , 225
+
+        # self.inc = models.densenet201(pretrained=True)
+        # self.inc = models.inception_v3(pretrained=True)
+        # model = []
+        model += [nn.Linear(255, 64), nn.BatchNorm1d(64), nn.Dropout(use_dropout)]
+        model += [nn.Linear(64, 32), nn.LayerNorm(32), nn.Dropout(use_dropout)]
         model += [nn.Linear(32, 1)]
         model += [nn.Sigmoid()]
+
         self.model = nn.Sequential(*model)
 
     def forward(self, input):

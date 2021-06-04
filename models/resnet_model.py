@@ -46,11 +46,16 @@ class ResNetModel(BaseModel):
 
     def compute_losses(self):
         self.losses = {}
+        #  binary cross entropy
         self.losses['BCE'] = self.criteria['BCE'](self.predicted, self.output)
         # print(self.predicted, torch.softmax(self.predicted.data, 1))
         # _, predicted_label = torch.max(torch.softmax(self.predicted.data, 1), 1)
-        predicted_label = torch.tensor(self.predicted > 0.5, dtype=float).to(self.device)
-        self.losses['accuracy'] = (self.output == predicted_label).float().mean()
+        #  img -> [0-1]
+        # img 8 X 3 X 224 X 224
+        # predicted 8 X 1
+        #  predicted label 8 X 1
+        predicted_label = torch.tensor(self.predicted > 0.5, dtype=float).to(self.device)  # 1
+        self.losses['accuracy'] = (self.output == predicted_label).float().mean()  # 0 == 0
 
     def optimize_parameters(self):
         self.optimizer_G.zero_grad()  # set G's gradients to zero

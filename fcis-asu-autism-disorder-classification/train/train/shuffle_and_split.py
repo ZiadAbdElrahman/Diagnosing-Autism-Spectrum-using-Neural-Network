@@ -8,7 +8,7 @@ autistic = [f'autistic/{f}' for f in autistic]
 non_autistic = [f'non_autistic/{f}' for f in non_autistic]
 
 random.shuffle(autistic)
-random.shuffle(autistic)
+random.shuffle(non_autistic)
 
 num_train = int(len(autistic) * 0.7)
 
