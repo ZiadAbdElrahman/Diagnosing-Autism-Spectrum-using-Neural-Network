@@ -2,9 +2,9 @@
 
 python train.py \
   --dataset_mode autism \
-  --name inc_diff_arch_0.1 \
+  --name exp_namr \
   --model resnet \
-  --netG resnet_6blocks \
+  --netG encoder \
   --gpu_ids 0 \
   --input_nc 3 \
   --batch_size 32 \
