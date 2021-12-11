@@ -26,11 +26,11 @@ Second architecture starts with 5 Conv Blocks Fig 2, each one consisting of Conv
 ### Encoder Arch consists of Strides and residual blocks then FCL’Enc’
 Third architecture consists of downscales bloks and residual blocks too, but mixed to not lose information in the first downscale blocks. 
 
-![Residual Block](./images/image5.jpg)  |  ![Downscales Layers](./images/image9.jpg)
+![Residual Block](./images/image5.png)  |  ![Downscales Layers](./images/image9.jpg)
 
 ### Inceptionv3
 Last architecture was built based on the famous architecture InceptionV3 Fig 4, and followed by fully connected layers.
-![InceptionV3 Architecture](./images/image11.jpg)
+![InceptionV3 Architecture](./images/image11.png)
 
 ## Best Model
 Best model that achieved 99% accuracy on the validation dataset is Inceptionv3, and there is number of reasons for that, The idea behind the Inception layer that deploy multiple convolutions with multiple filters and pooling layers simultaneously in parallel within the same layer, one of the advantage of using InceptionV3 is that its trained the Image net dataset that more than contain 14 million images.
