@@ -14,6 +14,7 @@ MU Researchers Identify Differences in Facial Characteristics of Children with A
 
 ## Dataset
 The dataset contains subfolders for the train category (autistic children and non-autistic children). There are 2,536 children faces training images, 1,268 autistic children faces and 1,268 non-autistic children faces. The testing set contains 400 images for children and you have to classify each of them.
+
 ![](./images/image1.jpg)  |  ![](./images/image1.jpg)
 
 ## Architectures
@@ -38,13 +39,20 @@ Best model that achieved 99% accuracy on the validation dataset is Inceptionv3, 
 ## Preprocessing
 For preprocessing the target was to show the facial information more, to help the model to analyze the face more.
 * Face localization Fig 5, to focus in the face only.
+
 ![Before](./images/image18.jpg)  |  ![After](./images/image15.jpg)
+
 * Facial information detection Fig 6, to help the model to find interest points.
+
 ![Before](./images/image6.jpg)  |  ![After](./images/image4.jpg)
+
 * Augmentation Fig 7, to increase the training dataset, by flipping the image and rotating the original and the flipped image  45° positive and negative, to end up having 5 new images for each image.
+
 ![Original](./images/image2.jpg)  |  ![Flipped](./images/image16.jpg)  |  ![Rotated(-45)](./images/image8.jpg)  |  ![Rotated(45)](./images/image12.jpg)  |  ![Rotated (-45) Flipped](./images/image14.jpg)  |  ![Rotated (45) Flipped](./images/image3.jpg)
+
 * RGB to Gray Fig 8.
 ![Before](./images/image10.jpg)  |  ![After](./images/image7.jpg)
+
 ## Conclusion
 Our model achieved 91.87% accuracy on the testset, and this can be encouragement to us and the Deep Learning community to invest more in the medical field.
 For a problem with less amount of data recommended to fine tuning  pretrained model like IncptiInceptionV3, VGG, ResNet … etc. If you can't find a pretrained model that trained on data similar to your dataset, you should try to simplify the problem and give the model more information that help to get the target output, like in our problem facial features and face localization.
