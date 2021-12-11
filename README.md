@@ -15,7 +15,7 @@ MU Researchers Identify Differences in Facial Characteristics of Children with A
 ## Dataset
 The dataset contains subfolders for the train category (autistic children and non-autistic children). There are 2,536 children faces training images, 1,268 autistic children faces and 1,268 non-autistic children faces. The testing set contains 400 images for children and you have to classify each of them.
 
-![](./images/image1.jpg)  |  ![](./images/image1.jpg)
+![](./images/image1.jpg)  |  ![](./images/image13.jpg)
 
 ## Architectures
 ### 5 Downscales then 9 residual blocks then FCL’5D9R’
