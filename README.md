@@ -19,10 +19,10 @@ The dataset contains subfolders for the train category (autistic children and no
 
 ## Architectures
 ### 5 Downscales then 9 residual blocks then FCL’5D9R’
-The first architecture starts with 5 Conv Blocks Fig 2, each one consisting of   Conv2d(stride=2), norm layer and RelU. and then 9 residual blocks Fig 3 consist of Conv2d, norm layer and RelU and then its ends with fully connected layers.
+The first architecture starts with 5 Conv Blocks, each one consisting of   Conv2d(stride=2), norm layer and RelU. and then 9 residual blocks consist of Conv2d, norm layer and RelU and then its ends with fully connected layers.
 	
 ### 5 Downscales then 6 residual blocks then FCL’5D6R’
-Second architecture starts with 5 Conv Blocks Fig 2, each one consisting of Conv2d(stride=2), norm layer and RelU. and then 6 residual blocks Fig 3 consist of Conv2d, norm layer and RelU, so it's shorter than the first archticture and then its ends with fully connected layers.
+Second architecture starts with 5 Conv Blocks, each one consisting of Conv2d(stride=2), norm layer and RelU. and then 6 residual blocks consist of Conv2d, norm layer and RelU, so it's shorter than the first archticture and then its ends with fully connected layers.
 
 ### Encoder Arch consists of Strides and residual blocks then FCL’Enc’
 Third architecture consists of downscales bloks and residual blocks too, but mixed to not lose information in the first downscale blocks. 
@@ -30,7 +30,7 @@ Third architecture consists of downscales bloks and residual blocks too, but mix
 ![Residual Block](./images/image5.png)  |  ![Downscales Layers](./images/image9.jpg)
 
 ### Inceptionv3
-Last architecture was built based on the famous architecture InceptionV3 Fig 4, and followed by fully connected layers.
+Last architecture was built based on the famous architecture InceptionV3, and followed by fully connected layers.
 ![InceptionV3 Architecture](./images/image11.png)
 
 ## Best Model
@@ -38,19 +38,20 @@ Best model that achieved 99% accuracy on the validation dataset is Inceptionv3, 
 
 ## Preprocessing
 For preprocessing the target was to show the facial information more, to help the model to analyze the face more.
-* Face localization Fig 5, to focus in the face only.
+* Face localization, to focus in the face only.
 
 ![Before](./images/image18.jpg)  |  ![After](./images/image15.jpg)
 
-* Facial information detection Fig 6, to help the model to find interest points.
+* Facial information detection, to help the model to find interest points.
 
 ![Before](./images/image6.jpg)  |  ![After](./images/image4.jpg)
 
-* Augmentation Fig 7, to increase the training dataset, by flipping the image and rotating the original and the flipped image  45° positive and negative, to end up having 5 new images for each image.
+* Augmentation, to increase the training dataset, by flipping the image and rotating the original and the flipped image  45° positive and negative, to end up having 5 new images for each image.
 
 ![Original](./images/image2.jpg)  |  ![Flipped](./images/image16.jpg)  |  ![Rotated(-45)](./images/image8.jpg)  |  ![Rotated(45)](./images/image12.jpg)  |  ![Rotated (-45) Flipped](./images/image14.jpg)  |  ![Rotated (45) Flipped](./images/image3.jpg)
 
-* RGB to Gray Fig 8.
+* RGB to Gray.
+
 ![Before](./images/image10.jpg)  |  ![After](./images/image7.jpg)
 
 ## Conclusion
